@@ -71,3 +71,5 @@ That's it! Running this in QEMU now should output your string.
 That's all we'll cover in this chapter, but there are some things you should play around with.
 1. Can you get more than one string printing?
 2. Can you print a second string on a new line?
+
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/510d03dfe4d9938a1d052bf4dbfa42c0dca930f4).
