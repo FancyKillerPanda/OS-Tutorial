@@ -193,7 +193,7 @@
   list-style: none;
 
   > li {
-    margin-bottom: $spacing-unit / 3;
+    margin-bottom: 0;
   }
 }
 
@@ -204,7 +204,7 @@
 
 .post-link {
   display: block;
-  @include relative-font-size(1.5);
+  @include relative-font-size(1.25);
 }
 
 
