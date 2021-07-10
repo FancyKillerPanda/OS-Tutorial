@@ -30,12 +30,12 @@ collections_dir: fkp_collections
 collections:
     01_introduction:
         title: "Introduction"
-        permalink: /:collection/:title
+        permalink: /:collection/:title/
         output: true
 
     02_bootloader:
         title: "Bootloader"
-        permalink: /:collection/:title
+        permalink: /:collection/:title/
         output: true
 
 # Build settings
