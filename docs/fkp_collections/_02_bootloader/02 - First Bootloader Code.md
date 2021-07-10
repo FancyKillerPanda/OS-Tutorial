@@ -43,7 +43,7 @@ If all goes to plan, you should see QEMU output "Booting from floppy...", and no
 
 I'll be putting these commands in bash files, just so I don't have to type them out each time I want to use them.
 
-tools/build.sh:
+tools/build.sh (run this from the root directory):
 ```bash
 #!/bin/bash
 

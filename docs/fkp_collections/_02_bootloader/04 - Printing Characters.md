@@ -14,13 +14,13 @@ To get the BIOS to do things for us, we can make use of "BIOS interrupts". These
 To print out a character, we will be using BIOS interrupt `0x10`. Looking at the [documentation on Wikipedia](https://en.wikipedia.org/wiki/INT_10H), we see:
 
 ```
-AH=0Eh
-AL = Character
-BH = Page Number
-BL = Color (only in graphic mode)	
+ah = 0x0e
+al = Character
+bh = Page Number
+bl = Color (only in graphic mode)	
 ```
 
-We won't be needing the colour here, and the page number will just be 0 (the first page). So that just leaves us with data for `ah` and `al`. Let's go!
+We won't be needing the colour here, and the page number will just be 0 (the first page). So that just leaves us with data for `ah` and `al`. Let's do it!
 
 ## The Code
 Here's where we left off last time:

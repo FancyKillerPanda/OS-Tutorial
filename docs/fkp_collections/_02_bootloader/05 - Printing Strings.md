@@ -28,7 +28,7 @@ print_string:
 		cmp al, 0
 		je .done
 
-		; Calls the interuupt to print a character
+		; Calls the interrupt to print a character
 		mov ah, 0x0e
 		xor bx, bx
 		int 0x10
@@ -54,7 +54,7 @@ We're not quite done yet, we still need to define a string to print out and we n
 stringToPrint: db "Hello, world!", 0
 ```
 
-To use the function, lets put this code after the `start` label (you can get rid of the single character print test we did in the previous chapter).
+To use the function, lets put this code after the `start` label (you can get rid of the single character print test we did in the previous chapter). Remember, we can't directly move values into segment registers, we must go via another general-purpose register (in this case, `ax`).
 ```nasm
 xor ax, ax
 mov ds, ax
@@ -67,9 +67,12 @@ The first two lines simply set the `ds` segment to 0, so that it does not affect
 
 That's it! Running this in QEMU now should output your string.
 
-## Final Thoughts
-That's all we'll cover in this chapter, but there are some things you should play around with.
+## Practice
+Some things to try out and play around with:
 1. Can you get more than one string printing?
 2. Can you print a second string on a new line?
+
+## Final Thoughts
+That's all we'll cover in this chapter, see you next time!
 
 See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/510d03dfe4d9938a1d052bf4dbfa42c0dca930f4).

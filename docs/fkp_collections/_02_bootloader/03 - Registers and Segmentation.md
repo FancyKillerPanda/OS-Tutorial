@@ -81,5 +81,5 @@ mov si, 0x7c00
 mov eax, dword [si]
 ```
 
-## Finishing Touches
+## Final Thoughts
 That's it for this chapter! In the next one, we'll look at how we can use our knowledge of assembly programming to get some characters printing to the screen.

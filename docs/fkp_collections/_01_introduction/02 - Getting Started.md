@@ -18,7 +18,8 @@ Clang is a compiler for C/C++ built upon LLVM, a large set of toolchains and bac
 [Downloads page](https://releases.llvm.org/download.html), or use your package manager.
 
 ```bash
-clang --version # outputs version 10.0.1
+$ clang --version
+> 10.0.1
 ```
 
 ### NASM
@@ -27,7 +28,8 @@ The Netwide Assembler (NASM) is one of the most popular assemblers for the x86 a
 [Downloads page](https://www.nasm.us/pub/nasm/releasebuilds/?C=M;O=D), or use your package manager.
 
 ```bash
-nasm --version # outputs version 2.14.02
+$ nasm --version
+> 2.14.02
 ```
 
 ## Debugging Tools
@@ -39,7 +41,8 @@ QEMU will be used as a general test area for our OS. Generally, I just use it to
 [Downloads page](https://www.qemu.org/download/), or use your package manager.
 
 ```bash
-qemu-system-i386 --version # outputs version 4.2.1
+$ qemu-system-i386 --version
+> 4.2.1
 ```
 
 ### Bochs
