@@ -167,3 +167,5 @@ expanded_main:
 
 ## Final Thoughts
 I know this was a really long chapter, well done on getting through it! We'll look at implmenting the functions here in coming chapters, so that we can move on to loading up the kernel.
+
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/dcc3b20c0da7a7a590b2db15c8e5bfab595eafe8).
