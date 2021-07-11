@@ -62,7 +62,12 @@ rebootMessage: db "Press any key to reboot...", CR, LF, 0
 
 ; NOTE(fkp)
 end_of_first_sector:
-	times 510 - ($ - $$) db 0
+	times 504 - ($ - $$) db 0
+
+	bootloaderNumberOfExtraSectors: dw 0
+	kernelStartSector: dw 0
+	kernelNumberOfSectors: dw 0
+
 	dw 0xaa55
 
 ; NOTE(fkp): Stub for now
