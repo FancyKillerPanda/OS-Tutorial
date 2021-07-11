@@ -54,4 +54,4 @@ As you can see, this simply reduces the number of padding bytes we insert, then 
 ## Final Thoughts
 This chapter was a set up for the next one, where we will be implementing disk reading to expand the bootloader. See you there!
 
-See the code in full [here]().
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/11e031ba612a21d6a7d405a0c2752c2472664c00).
