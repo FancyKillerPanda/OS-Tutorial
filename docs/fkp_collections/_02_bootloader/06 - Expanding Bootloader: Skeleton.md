@@ -129,4 +129,41 @@ call print_string
 
 ## Bootloader Expansion
 ### Why do it?
-Simply put: 512 bytes is not very much.
+Simply put: 512 bytes is not very much. While it would *technically* be possible to create your entire bootloader in the single sector that the BIOS loads for you, I'd not recommend this as it leaves *very* little room for meaningful error messages.
+
+### So what needs to be done?
+After we do our initial set up in the bootloader, we'll read additional sectors from the disk and load them at subsequent addresses in RAM. Since we initially get loaded at `0x7c00`, the next sector should be loaded at `0x7e00` and the one after at `0x8000`. This will allow us to use extra space when creating loading our kernel.
+
+Some tutorials (such as [this](http://www.independent-software.com/operating-system-development.html)) decide to set up the filesystem and read from the disk in that way. I, however, found this unnecessary complex, and instead chose to simply store the extra bootloader area at the start of the disk. This saves me from having to locate it on disk, I can simply read from the very start.
+
+### Skeleton Code
+We'll add in some skeleton code to help you get an understanding of what's going to happen, but we'll leave most of the implementation to future chapters (as this is already extremely long).
+
+We'll add a new label (still inside the `main` function, this happens after `setup`) that will expand the bootloader for us, and then we'll jump to the next sector.
+```nasm
+.expand_bootloader:
+	mov si, expandingMessage
+	call print_string
+
+	; We'll add arguments to this later
+	call read_disk
+
+.after_expansion:
+	jmp expanded_main
+```
+
+That requires the definition of a `read_disk` function, which will just be a stub for now:
+```nasm
+; void read_disk()
+read_disk:
+	ret
+```
+
+It also jumps to the label `expanded_main`, which can also be a stub for now. This one, however, will be put *after* the end of the first sector (after `dw 0xaa55`), as it represents what will be loaded in the future. Note: if you try do anything from `expanded_main` right now, nothing will happen as it is never loaded into RAM.
+```nasm
+expanded_main:
+	jmp $
+```
+
+## Final Thoughts
+I know this was a really long chapter, well done on getting through it! We'll look at implmenting the functions here in coming chapters, so that we can move on to loading up the kernel.
