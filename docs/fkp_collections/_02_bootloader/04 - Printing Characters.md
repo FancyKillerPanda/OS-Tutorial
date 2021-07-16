@@ -1,8 +1,8 @@
 ---
 layout: page
-title:  "Printing Characters"
-slug:  "printing-characters"
-date:   2021-07-10 15:09:28 +1000
+title: "Printing Characters"
+slug: "printing-characters"
+date: 2021-07-10 15:09:28 +1000
 ---
 
 What use is a bootloader if it can't even output strings to the screen? In this chapter, we'll take a look at using BIOS interrupts to print characters to the screen.

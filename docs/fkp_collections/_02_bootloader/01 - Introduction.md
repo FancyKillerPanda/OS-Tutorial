@@ -1,8 +1,8 @@
 ---
 layout: page
-title:  "Introduction"
-slug:  "introduction"
-date:   2021-07-10 11:14:09 +1000
+title: "Introduction"
+slug: "introduction"
+date: 2021-07-10 11:14:09 +1000
 ---
 
 ## What's a bootloader?

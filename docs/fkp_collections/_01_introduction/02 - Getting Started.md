@@ -1,8 +1,8 @@
 ---
 layout: page
-title:  "Getting Started"
-slug:  "getting-started"
-date:   2021-07-10 10:27:04 +1000
+title: "Getting Started"
+slug: "getting-started"
+date: 2021-07-10 10:27:04 +1000
 ---
 
 ## Development Environment

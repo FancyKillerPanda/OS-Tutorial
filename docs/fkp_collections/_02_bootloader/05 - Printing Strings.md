@@ -1,8 +1,8 @@
 ---
 layout: page
-title:  "Printing Strings"
-slug:  "printing-strings"
-date:   2021-07-10 15:35:44 +1000
+title: "Printing Strings"
+slug: "printing-strings"
+date: 2021-07-10 15:35:44 +1000
 ---
 
 Here we go, printing entire strings! If you haven't already had a go at it, I'd strongly recommend doing so.
