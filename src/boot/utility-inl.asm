@@ -50,3 +50,50 @@ print_string:
 
 	.done:
 		ret
+
+; (ch cylinder, cl sector, dh head) calculate_chs(cx LBA-sector)
+calculate_chs:
+	sectorsPerTrack: equ 36
+	headsPerCylinder: equ 2
+
+	.calculate_sector:
+		xor dx, dx
+		mov ax, cx
+		mov bx, sectorsPerTrack
+		div bx					; LBA div/mod SPT
+		inc dx
+		mov [tempSector], dl
+
+	.calculate_head:
+		; ax already contains quotient of LBA / SPT
+		xor dx, dx
+		mov bx, headsPerCylinder
+		div bx
+		mov [tempHead], dl
+
+	.calculate_cylinder:
+		xor dx, dx
+		mov ax, cx
+		mov bx, sectorsPerTrack * headsPerCylinder
+		div bx
+		mov [tempCylinder], ax
+
+	.finish:
+		; cx:       -- CH -- -- CL --
+		; Cylinder: 76543210 98
+		; Sector:              543210
+		movzx cx, byte [tempSector]
+		mov ax, word [tempCylinder]
+		shl ax, 8
+		or cx, ax
+		mov ax, word [tempCylinder]
+		and ax, 0xc000
+		shr ax, 8
+		or cx, ax
+		mov dh, byte [tempHead]
+
+		ret
+
+tempCylinder: dw 0
+tempHead: db 0
+tempSector: db 0
