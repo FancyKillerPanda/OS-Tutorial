@@ -92,3 +92,5 @@ Well done! Now that we've got an expanding bootloader out of the way, we can wor
 In the next chapter I'll look at how we can debug our code with Bochs, as that will be extremely useful later on. Hang tight!
 
 ![Output]({{ site.baseurl }}{% link /assets/02-09 (Expanding Bootloader) Output.png %})
+
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/9e05af876d959ff4841d40481fd6f6449d90046f).
