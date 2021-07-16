@@ -137,7 +137,7 @@ As you can see, the top two bits of the cylinder value needs to go at the top of
 	shl ax, 8
 	or cx, ax
 	
-	; Puts cylinder bits 98 into the top of the sector area
+	; Puts cylinder bits 98 into the top of the sector byte
 	mov ax, word [tempCylinder]
 	and ax, 0xc000
 	shr ax, 8
@@ -154,3 +154,4 @@ There are a few new instructions here, but it should not be too hard to follow w
 ## Final Thoughts
 That's it, we can now calculate a CHS tuple of values for any LBA sector. In the next chapter, we'll look at reading from a disk and actually expanding the bootloader!
 
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/edaae0305d4a127de1c9f81a5954a0a4346ebd5b).
