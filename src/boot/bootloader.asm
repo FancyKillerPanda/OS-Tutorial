@@ -31,14 +31,19 @@ main:
 		mov si, expandingMessage
 		call print_string
 
+		; Destination
+		mov ax, 0x07e0
+		mov es, ax
+		xor bx, bx
+
+		; Start sector and length
+		mov cl, 1
+		mov al, [bootloaderNumberOfExtraSectors]
+
 		call read_disk
 
 	.after_expansion:
 		jmp expanded_main
-
-; void read_disk()
-read_disk:
-	ret
 
 %include "utility-inl.asm"
 
@@ -46,6 +51,7 @@ bootDriveNumber: db 0
 welcomeMessage: db "OS Tutorial!", CR, LF, 0
 expandingMessage: db "Info: Expanding bootloader...", CR, LF, 0
 rebootMessage: db "Press any key to reboot...", CR, LF, 0
+diskErrorMessage: db "Error: Failed to read disk!", CR, LF, 0
 
 end_of_first_sector:
 	times 504 - ($ - $$) db 0
@@ -57,4 +63,9 @@ end_of_first_sector:
 	dw 0xaa55
 
 expanded_main:
+	mov si, expandedMessage
+	call print_string
+
 	jmp $
+
+expandedMessage: db "Info: Bootloader expansion successful!", CR, LF, 0

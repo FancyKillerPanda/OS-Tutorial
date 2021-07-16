@@ -51,6 +51,27 @@ print_string:
 	.done:
 		ret
 
+; void read_disk(cx sector, al number-to-read, es:bx into)
+read_disk:
+	.read:
+		push ax
+		push bx
+		call calculate_chs
+		pop bx
+		pop ax
+
+		mov dl, [bootDriveNumber]
+		mov ah, 0x02
+		int 0x13
+
+		jc .read_failed
+		ret
+
+	.read_failed:
+		mov si, diskErrorMessage
+		call print_string
+		call reboot
+
 ; (ch cylinder, cl sector, dh head) calculate_chs(cx LBA-sector)
 calculate_chs:
 	sectorsPerTrack: equ 36
