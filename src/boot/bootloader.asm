@@ -68,4 +68,6 @@ expanded_main:
 
 	jmp $
 
+%include "a20Utility-inl.asm"
+
 expandedMessage: db "Info: Bootloader expansion successful!", CR, LF, 0
