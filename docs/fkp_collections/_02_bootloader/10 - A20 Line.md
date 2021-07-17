@@ -195,3 +195,5 @@ try_set_a20_fast:
 
 ## Final Thoughts
 As of now, you should be getting a message that the A20 line was successfully enabled (remember to call `try_enable_a20` from your `expanded_main`). In the next chapter, we'll look at setting up some tables. I believe we should be jumping to the kernel very soon, hang tight!
+
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/ed2ec3927d745b150f134b2dca2cd7c144296905).
