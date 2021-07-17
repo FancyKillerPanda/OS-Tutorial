@@ -37,10 +37,16 @@ try_set_a20_bios:
 
 ; void try_set_a20_keyboard()
 try_set_a20_keyboard:
+	; TODO(fkp): Implement this (and write about it in the guide)
 	ret
 
 ; void try_set_a20_fast()
 try_set_a20_fast:
+	; Reads, sets bit 2, writes
+	in al, 0x92
+	or al, 2
+	out 0x92, al
+
 	ret
 
 ; void check_a20()

@@ -175,3 +175,23 @@ try_set_a20_bios:
 
 	ret
 ```
+
+## Setting A20 via Fast A20
+There exists another method of setting the A20 line, called Fast A20 (ironically, this method can be a little slow). It involves reading a value from the IO port `0x92`, setting the second bit of that value, then writing it back out to the same port. In code, that looks something like this:
+
+```nasm
+; void try_set_a20_fast()
+try_set_a20_fast:
+	; Reads, sets bit 2, writes
+	in al, 0x92
+	or al, 2
+	out 0x92, al
+
+	ret
+```
+
+## Setting A20 via Keyboard
+*This page is getting a little long, so for brevity's sake I'm not going to detail this one here. You can have a look at the [OSdev wiki](https://wiki.osdev.org/A20_Line#Enabling) or the [PandaOS source](https://github.com/FancyKillerPanda/PandaOS/blob/master/src/boot/a20Utility-inl.asm#L39) for possible implementations.*
+
+## Final Thoughts
+As of now, you should be getting a message that the A20 line was successfully enabled (remember to call `try_enable_a20` from your `expanded_main`). In the next chapter, we'll look at setting up some tables. I believe we should be jumping to the kernel very soon, hang tight!
