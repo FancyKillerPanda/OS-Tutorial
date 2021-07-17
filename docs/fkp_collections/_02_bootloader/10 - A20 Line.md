@@ -76,3 +76,102 @@ We'll also need to include this file in our main `bootloader.asm` file, so let's
 ```nasm
 %include "a20Utility-inl.asm"
 ```
+
+## Checking If A20 Is Enabled
+The way we check if the A20 line is enabled is a bit odd, but kinda smart. What we do is we write a value to a location that would be affected by the A20 line not being enabled (for example `0x100000`). If the A20 line is not enabled this would be the same as writing to an earlier address (`0x100000` without the 21st bit would be `0x000000`), so we can check that earlier address to see if it has our written value. If it does, the A20 line isn't working yet.
+
+The address we're going to be using is `0x100500`, which will map to `0x000500` if the A20 line is not enabled. Why not simply `0x100000`? Well `0x500` is the first bit of usable memory for us, we don't want to accidently overwrite something important in the BIOS Data Area and have our program crash. Here's a little overview of the memory layout of the first megabyte, [courtesy of the OSDev Wiki](https://wiki.osdev.org/Memory_Map_(x86)).
+
+![Bootloader Memory Layout]({{ site.baseurl }}{% link /assets/bootloaderMemoryLayout.png %})
+
+### The Code
+The first thing we should do is save the registers (by pushing them onto the stack) that we're going to be modifying, so that we can restore them later. We'll also disable interrupts, so the BIOS doesn't interfere while we're working on this.
+
+```nasm; void check_a20()
+check_a20:
+	.setup:
+		; Saves registers that will be overwritten
+		pushf
+		push ds
+		push es
+		push di
+		push si
+
+		; Disables interrupts
+		cli
+```
+
+Next, we'll set those registers to point at what we want. `ds:si` will be set to point at the location past the 1 MiB mark (0x100500), and `es:di` will be set to point at the (possibly) same location below the 1 MiB mark (0x000500).
+
+```nasm
+; For es:di
+xor ax, ax
+mov es, ax
+mov di, 0x0500
+
+; For ds:si
+mov ax, 0xffff
+mov ds, ax
+mov si, 0x0510
+```
+
+Alright, we'll now save the bytes that are actually at that location so that we can restore them later. While we *might* not have any issues skipping this step, I'd like to err on the safe side. All we're doing here is moving what's at those bytes into `al`, then pushing that onto the stack.
+
+```nasm
+mov al, [es:di]
+push ax
+mov al, [ds:si]
+push ax
+```
+
+Finally, it's time to conduct the test. This is fairly simple, we're just moving a value into `ds:si` and checking if the same value appeared where `ds:si` is pointing. 
+
+```nasm
+.conduct:
+	mov byte [es:di], 0x00
+	mov byte [ds:si], 0xff
+	cmp byte [es:di], 0xff
+```
+
+Before we jump based on the result of the `cmp`, let's restore the bytes that were previously there. This is simply doing the opposite of one of the previous steps.
+
+```nasm
+.cleanup:
+	pop ax
+	mov [ds:si], al
+	pop ax
+	mov [es:di], al
+```
+
+And finally, we'll return whether the A20 line is enabled or not. To do this, we'll simply put either a 0 (not enabled) or a 1 (enabled) in `ax` before calling `ret`. That way, the caller (see our macro definition of `finish_if_a20_enabled`) can check the value of `ax` to find the return code.
+
+Remember that we also need to cleanup the registers we used, so let's do that now too.
+
+```nasm
+	mov ax, 0
+	je .done
+	mov ax, 1
+
+.done:
+	pop si
+	pop di
+	pop es
+	pop ds
+	popf
+
+	ret
+```
+
+And that's it! Now whenever we call this function, it'll check if the A20 line is enabled or not!
+
+## Setting A20 via BIOS
+We can possibly enable the A20 line through the BIOS, using interrupt `0x15` with `ah` set to `0x24` and `al` set to `0x01`.
+
+```nasm
+; void try_set_a20_bios()
+try_set_a20_bios:
+	mov ax, 0x2401
+	int 0x15
+
+	ret
+```

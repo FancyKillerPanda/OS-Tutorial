@@ -66,6 +66,8 @@ expanded_main:
 	mov si, expandedMessage
 	call print_string
 
+	call try_enable_a20
+
 	jmp $
 
 %include "a20Utility-inl.asm"
