@@ -53,3 +53,5 @@ call describe_idt
 
 ## Final Thoughts
 That's it for this one! It's a fairly short chapter, but the next one on GDTs will be somewhat longer. Hang tight!
+
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/1a63802fae00b5b417b055f50fbfcee1c669f84d).
