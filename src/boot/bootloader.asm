@@ -68,8 +68,11 @@ expanded_main:
 
 	call try_enable_a20
 
+	call describe_idt
+
 	jmp $
 
 %include "a20Utility-inl.asm"
+%include "descriptorTableUtility-inl.asm"
 
 expandedMessage: db "Info: Bootloader expansion successful!", CR, LF, 0
