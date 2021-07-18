@@ -7,7 +7,7 @@ date: 2021-07-18 10:44:49 +1000
 
 The Interrupt Descriptor Table (IDT) is a table which tells the CPU where to look for interrupt routines (special functions that may be triggered by the CPU when different things happen). An example of an interrupt routine is the Keyboard Interrupt (handler index 1), which is called anytime a key is pressed.
 
-For now, we're just going to have our IDT at `0x7100` (you'll notice that this is just after the GDT). There are 256 8-byte entries (2048 bytes total) in the table, but we'll fill our actual data in with zeroes for the moment (our kernel will define actual handlers and add in pointers to those).
+For now, we're just going to have our IDT at `0x7100`. There are 256 8-byte entries (2048 bytes total) in the table, but we'll fill our actual data in with zeroes for the moment (our kernel will define actual handlers and add in pointers to those).
 
 ## The Code
 ```nasm
