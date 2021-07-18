@@ -42,7 +42,97 @@ Before we start describing the descriptors themselves, let's have a look at what
 | 6 | 52 - 55 | Flags |
 | 7 | 56 - 63 | Base (bits 24 - 31) |
 
-Ok, let me explain that. The *limit* is a 20-bit value that tells the CPU what the maximum addressable area (this could be defined in pages or in bytes, we'll use bytes). The *base* is the location where this segment starts, which we'll always set to `0x00`. The *access byte* and *flags* define properties about the segment, such as if it has executable permissions or not.
+Ok, let me explain that. The *limit* is a 20-bit value that tells the CPU what the maximum addressable area (this could be defined in pages or in bytes). The *base* is the location where this segment starts, which we'll always set to `0x00`. The *access byte* and *flags* define properties about the segment, such as if it has executable permissions or not.
 
 ## Defining Them
+### NULL Descriptor
+Ok, I lied when I said there'll only be four descriptors, there's actually a secret fifth one that's never used. The problem is that some emulators (such as Bochs), will complain if this isn't present, so we'll just define it at the start. It's simply just a zeroed out descriptor.
+
+```nasm
+.describe:
+	gdtNullOffset: equ 0
+	
+	mov [es:di],     word 0x0000
+	mov [es:di + 2], word 0x0000
+	mov [es:di + 4], byte 0x00
+	mov [es:di + 5], byte 0x00
+	mov [es:di + 6], byte 0x00
+	mov [es:di + 7], byte 0x00
+
+	add di, 8
+```
+
+### 16-Bit Code Segment
+This is a descriptor which has the present and executable access bits set.
+
+```nasm
+gdtCode16Offset: equ 8
+
+mov [es:di],     word 0xffff	; Limit of 4GB
+mov [es:di + 2], word 0x0000	; Base
+mov [es:di + 4], byte 0x00		; More base bits
+mov [es:di + 5], byte 0x98		; Access (present and executable are set)
+mov [es:di + 6], byte 0x00		; Flags (granularity and size) and limit
+mov [es:di + 7], byte 0x00		; More base bits
+
+add di, 8
+```
+
+### 16-Bit Data Segment
+This is a descriptor which has the present and writable access bits set.
+
+```nasm
+gdtData16Offset: equ 16
+mov [es:di],     word 0xffff ; Limit of 4GB
+mov [es:di + 2], word 0x0000 ; Base
+mov [es:di + 4], byte 0x00	; More base bits
+mov [es:di + 5], byte 0x92	; Access (present and writable are set)
+mov [es:di + 6], byte 0x00	; Flags (granularity and size) and limit
+mov [es:di + 7], byte 0x00	; More base bits
+
+add di, 8
+```
+
+### 32-Bit Code Segment
+This is a descriptor which has the present and executable access bits set. It also has flag bits set for using page granularity and 32-bit protected mode.
+
+```nasm
+gdtCode32Offset: equ 24
+mov [es:di],     word 0xffff ; Limit of 4GB
+mov [es:di + 2], word 0x0000 ; Base
+mov [es:di + 4], byte 0x00	; More base bits
+mov [es:di + 5], byte 0x9a	; Access (present, executable, and readable are set)
+mov [es:di + 6], byte 0xcf	; Flags (granularity and size) and limit
+mov [es:di + 7], byte 0x00	; More base bits
+
+add di, 8
+```
+
+### 32-Bit Data Segment
+This is a descriptor which has the present, readable, and writable access bits set. It also has flag bits set for using page granularity and 32-bit protected mode.
+
+```nasm
+gdtData32Offset: equ 32
+mov [es:di],     word 0xffff ; Limit of 4GB
+mov [es:di + 2], word 0x0000 ; Base
+mov [es:di + 4], byte 0x00	; More base bits
+mov [es:di + 5], byte 0x92	; Access (present and writable are set)
+mov [es:di + 6], byte 0xcf	; Flags (granularity and size) and limit
+mov [es:di + 7], byte 0x00	; More base bits
+
+add di, 8
+```
+
+## Cleanup
+And finally, we'll simply pop the stack into `es` (because we pushed `es` at the start to save it) and return from this function.
+
+```nasm
+.cleanup:
+	pop es
+	ret
+```
+
+## Final Thoughts
+Phew, we're done with that one. I know it was a little long, but it was fairly copy-paste-y, so it should be ok. We should finally be ready to look at enabling protected mode next chapter, so look forward to that!
+
 

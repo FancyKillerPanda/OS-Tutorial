@@ -68,6 +68,7 @@ expanded_main:
 
 	call try_enable_a20
 
+	call describe_gdt
 	call describe_idt
 
 	jmp $
