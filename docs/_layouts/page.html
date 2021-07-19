@@ -12,8 +12,13 @@ layout: default
 
 		{% for doc in site[page.collection] %}
 			{% if doc.url == page.url %}
-				<a class="previous-page-link" href={{ site.baseurl }}{{ doc.previous.url }}>&lt; Previous</a>
-				<a class="next-page-link" href={{ site.baseurl }}{{ doc.next.url }}>Next &gt;</a>
+				{% if doc.previous.url %}
+					<a class="previous-page-link" href={{ site.baseurl }}{{ doc.previous.url }}>&lt; Previous</a>
+				{% endif %}
+
+				{% if doc.next.url %}
+					<a class="next-page-link" href={{ site.baseurl }}{{ doc.next.url }}>Next &gt;</a>
+				{% endif %}
 			{% endif %}
 		{% endfor %}
 	</div>
