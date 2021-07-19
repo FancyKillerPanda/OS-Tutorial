@@ -15,4 +15,11 @@ Like many other programming projects, the question of why build one is a bit har
 
 If you're in this because you think it'll be an easy project... *turn away now*. The truth is: OS development is hard. But I don't say this to discourage you from it, it's extremely rewarding as well. Having more experience with C/C++ and Assembly will certainly be helpful, but not having it isn't a deal-breaker if you're willing to put in the time to learn along the way.
 
-Have fun!
+# What you'll find in this tutorial
+This tutorial will guide you through building up a bootloader and kernel from scratch. It will provide all the code needed to do so, with checkpoints along the way (so you have a reference if you're following along).
+
+However, if you're looking for the most detailed explanations of *why* some things are, this is not the place. I strive to detail as much as I can (to ensure that it's possible for you to have a basic-intermediate understanding of what's going on), but there comes a point where it's just an overload of information. Making the sacrifice in detail (believe me, there's still plenty of detail here) allows this guide to be a better reference for other parts of the development of an Operating System.
+
+If you are looking for that extra bit of detail to supplement this guide, the [OSDev Wiki](https://wiki.osdev.org/Main_Page) is what you're looking for.
+
+## Have fun!

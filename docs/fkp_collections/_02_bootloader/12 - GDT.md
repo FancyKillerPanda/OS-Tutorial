@@ -83,12 +83,12 @@ This is a descriptor which has the present and writable access bits set.
 
 ```nasm
 gdtData16Offset: equ 16
-mov [es:di],     word 0xffff ; Limit of 4GB
-mov [es:di + 2], word 0x0000 ; Base
-mov [es:di + 4], byte 0x00	; More base bits
-mov [es:di + 5], byte 0x92	; Access (present and writable are set)
-mov [es:di + 6], byte 0x00	; Flags (granularity and size) and limit
-mov [es:di + 7], byte 0x00	; More base bits
+mov [es:di],     word 0xffff	; Limit of 4GB
+mov [es:di + 2], word 0x0000	; Base
+mov [es:di + 4], byte 0x00		; More base bits
+mov [es:di + 5], byte 0x92		; Access (present and writable are set)
+mov [es:di + 6], byte 0x00		; Flags (granularity and size) and limit
+mov [es:di + 7], byte 0x00		; More base bits
 
 add di, 8
 ```
@@ -98,12 +98,12 @@ This is a descriptor which has the present and executable access bits set. It al
 
 ```nasm
 gdtCode32Offset: equ 24
-mov [es:di],     word 0xffff ; Limit of 4GB
-mov [es:di + 2], word 0x0000 ; Base
-mov [es:di + 4], byte 0x00	; More base bits
-mov [es:di + 5], byte 0x9a	; Access (present, executable, and readable are set)
-mov [es:di + 6], byte 0xcf	; Flags (granularity and size) and limit
-mov [es:di + 7], byte 0x00	; More base bits
+mov [es:di],     word 0xffff	; Limit of 4GB
+mov [es:di + 2], word 0x0000	; Base
+mov [es:di + 4], byte 0x00		; More base bits
+mov [es:di + 5], byte 0x9a		; Access (present, executable, and readable are set)
+mov [es:di + 6], byte 0xcf		; Flags (granularity and size) and limit
+mov [es:di + 7], byte 0x00		; More base bits
 
 add di, 8
 ```
@@ -113,12 +113,12 @@ This is a descriptor which has the present, readable, and writable access bits s
 
 ```nasm
 gdtData32Offset: equ 32
-mov [es:di],     word 0xffff ; Limit of 4GB
-mov [es:di + 2], word 0x0000 ; Base
-mov [es:di + 4], byte 0x00	; More base bits
-mov [es:di + 5], byte 0x92	; Access (present and writable are set)
-mov [es:di + 6], byte 0xcf	; Flags (granularity and size) and limit
-mov [es:di + 7], byte 0x00	; More base bits
+mov [es:di],     word 0xffff	; Limit of 4GB
+mov [es:di + 2], word 0x0000	; Base
+mov [es:di + 4], byte 0x00		; More base bits
+mov [es:di + 5], byte 0x92		; Access (present and writable are set)
+mov [es:di + 6], byte 0xcf		; Flags (granularity and size) and limit
+mov [es:di + 7], byte 0x00		; More base bits
 
 add di, 8
 ```
