@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "GDT"
+title: "Global Descriptor Table"
 slug: "gdt"
 date: 2021-07-18 11:07:23 +1000
 ---

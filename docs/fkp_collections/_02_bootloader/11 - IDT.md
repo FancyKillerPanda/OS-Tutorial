@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "IDT"
+title: "Interrupt Descriptor Table"
 slug: "idt"
 date: 2021-07-18 10:44:49 +1000
 ---
