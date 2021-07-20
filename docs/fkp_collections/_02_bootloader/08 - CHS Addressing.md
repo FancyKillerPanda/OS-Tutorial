@@ -2,7 +2,6 @@
 layout: page
 title: "CHS Addressing"
 slug: "chs-addressing"
-date: 2021-07-11 20:31:27 +1000
 ---
 
 Oh boy, this one's gonna be a bit calculation heavy (which isn't very fun in assembly to be honest). We are going to be starting our dive into the world of disk reading, and for that we're going to intimately understand the drives themselves. Buckle up!

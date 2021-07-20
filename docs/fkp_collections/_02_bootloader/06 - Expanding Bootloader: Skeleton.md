@@ -2,7 +2,6 @@
 layout: page
 title: "Expanding Bootloader: Skeleton"
 slug: "skeleton-expanding-bootloader"
-date: 2021-07-11 10:09:17 +1000
 ---
 
 In this chapter, we'll look at the theory behind an expanding bootloader, as well as implementing a skeleton for it (we'll do detailed implementations in the next chapter). This is quite a long chapter, so read it in parts if you need.

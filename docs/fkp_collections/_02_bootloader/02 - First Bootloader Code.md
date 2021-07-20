@@ -2,7 +2,6 @@
 layout: page
 title: "First Bootloader Code"
 slug: "first-bootloader-code"
-date: 2021-07-10 11:33:37 +1000
 ---
 
 In the last chapter, I mentioned that the BIOS loads the first sector of a drive and checks if it's a valid bootsector. You might now be wondering... how? How does it know if a sector is bootable, or just a regular sector of some drive?

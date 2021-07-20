@@ -2,7 +2,6 @@
 layout: page
 title: "Global Descriptor Table"
 slug: "gdt"
-date: 2021-07-18 11:07:23 +1000
 ---
 
 We've covered the Interrupt Descriptor Table, now it's time to describe a Global Descriptor Table (GDT). This is a similar table to the IDT, made up of 8-byte entries (though there are not nearly as many of them). When in Protected Mode, the GDT tells the CPU about the memory segments, and how they should be used (note that the way of segmentation of multiplying the segment by 16 doesn't happen in Protected Mode).

@@ -2,7 +2,6 @@
 layout: page
 title: "Bootloader Expansion"
 slug: "bootloader-expansion"
-date: 2021-07-16 14:13:55 +1000
 ---
 
 In this chapter we will *finally* get the bootloader expanding! We will look at writing a function to read from the disk, and then we'll call that function on the rest of our bootloader to expand it.

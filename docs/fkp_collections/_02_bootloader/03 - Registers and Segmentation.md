@@ -2,7 +2,6 @@
 layout: page
 title: "Registers and Segmentation"
 slug: "registers-and-segmentation"
-date: 2021-07-10 13:56:22 +1000
 ---
 
 In this chapter, we will go over the registers the CPU uses to manipulate data, as well as the segmentation system that is used in Real Mode.

@@ -2,7 +2,6 @@
 layout: page
 title: "A20 Line"
 slug: "a20-line"
-date: 2021-07-16 15:28:11 +1000
 ---
 
 In this chapter, we'll look at an annoying quirk of the past and try to deal with it. Ugh? Yay? I'm not really sure to be honest.

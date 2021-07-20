@@ -2,7 +2,6 @@
 layout: page
 title: "The genVDisk Utility"
 slug: "genVDisk-utility"
-date: 2021-07-11 10:09:17 +1000
 ---
 
 ## What is `genVDisk`?

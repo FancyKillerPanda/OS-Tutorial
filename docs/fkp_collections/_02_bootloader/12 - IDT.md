@@ -2,7 +2,6 @@
 layout: page
 title: "Interrupt Descriptor Table"
 slug: "idt"
-date: 2021-07-18 10:44:49 +1000
 ---
 
 The Interrupt Descriptor Table (IDT) is a table which tells the CPU where to look for interrupt routines (special functions that may be triggered by the CPU when different things happen). An example of an interrupt routine is the Keyboard Interrupt (handler index 1), which is called anytime a key is pressed.
