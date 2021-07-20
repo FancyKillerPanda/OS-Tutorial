@@ -151,4 +151,4 @@ jmp KERNEL_FLAT_ADDRESS
 ## Final Thoughts
 **Well done!!!** If all has gone to plan, you should see a bunch of messages telling you that it's entering Protected/Real Mode again, and then a nice little one saying it's loaded the kernel. You should also see a little blue/white `Hello, world!` message being printed at the top of the screen (from the kernel!). If that's not what you get, have a look at the code again to make sure you've done everything correctly.
 
-See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/).
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/0dcecac61149ce2cd74c752059c85aae3dbbc3aa).
