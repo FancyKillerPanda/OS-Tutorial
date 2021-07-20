@@ -174,3 +174,5 @@ clang++ $kernelCompileFlags $kernelLinkFlags $kernelFiles || exit 1
 
 ## Final Thoughts
 If you run this now... nothing much should have changed. We'll be able to test that everything worked in a future chapter when we've loaded the kernel, but for now you'll just have to trust in it. The genVDisk utility should now be saying that it output a number of sectors for the kernel, so make sure that's happening!
+
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/611261d26187867eabdb9b3328231a83ad111fa8).
