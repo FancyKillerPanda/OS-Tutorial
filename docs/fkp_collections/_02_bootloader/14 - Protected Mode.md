@@ -98,3 +98,5 @@ That's all we need to do to enable Protected Mode. Let's tell NASM we're done:
 Unfortunately, BIOS interrupts are not available when in Protected Mode. This means that we won't be able to use our `print_string` function while in here (when we get to the kernel (soon!) I'll show you how to output text). What you can do is set a breakpoint after the macro to make sure that we get to that point; if we don't go into a boot loop everything should be fine!
 
 In the next chapter, we'll look at how we can create a macro to head back into Real Mode (we'll need to use both these macros when loading the kernel)!
+
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/9d41a979bdffce88184cf422b2af124b7f0e2824).

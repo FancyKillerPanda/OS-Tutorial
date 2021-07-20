@@ -96,3 +96,5 @@ Should output something like this:
 ![QEMU Output]({{ site.baseurl }}{% link /assets/02-15 (Back To Real Mode) Output.png %})
 
 We'll look at loading the kernel in the next chapter, hang tight!
+
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/e0254caf549e9d50bfb770a79d963a8783e5dc36).
