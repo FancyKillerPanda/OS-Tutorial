@@ -2,15 +2,15 @@
 
 extern "C" void kmain()
 {
-	u8* address = (u8*) 0xb8000;
+	unsigned char* address = (unsigned char*) 0xb8000;
 	const char* string = "Hello, world!";
-	u16 stringSize = 13;
+	unsigned short stringSize = 13;
 
-	for (u16 i = 0; i < stringSize; i++)
+	for (unsigned short i = 0; i < stringSize; i++)
 	{
-		*address = (u8) string[i];
+		*address = (unsigned char) string[i];
 		address += 1;
-		*address = (u8) 0x9f;
+		*address = (unsigned char) 0x9f;
 		address += 1;
 	}
 

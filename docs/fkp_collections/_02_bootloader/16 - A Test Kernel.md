@@ -14,20 +14,29 @@ I'll explain what this code actually does in a future chapter (when we start pro
 ```cpp
 extern "C" void kmain()
 {
-	u8* address = (u8*) 0xb8000;
+	unsigned char* address = (unsigned char*) 0xb8000;
 	const char* string = "Hello, world!";
-	u16 stringSize = 13;
+	unsigned short stringSize = 13;
 
-	for (u16 i = 0; i < stringSize; i++)
+	for (unsigned short i = 0; i < stringSize; i++)
 	{
-		*address = (u8) string[i];
+		*address = (unsigned char) string[i];
 		address += 1;
-		*address = (u8) 0x9f;
+		*address = (unsigned char) 0x9f;
 		address += 1;
 	}
 
 	while (true);
 }
+```
+
+## Unity Build
+This step is pretty optional, though I do recommend it. A unity build is where a single C++ file is compiled, a file which `#include`s every other C++ file (not the headers, I mean the actual `.cpp` ones). The major advantage of this style of build is that header files are only parsed a single time, rather than a single time for each C++ file. Additionally, since the compiler is only invoked a single time, it can improve efficiency by reducing overhead.
+
+Let's define `unityBuild.cpp`, which will currently only have one include (this will grow over time).
+
+```cpp
+#include "kernel.cpp"
 ```
 
 ## The Entry Point
@@ -87,7 +96,7 @@ Next we define the `.text` output section. We align it to 4 kiB, and also tell i
 Note that the very first item is the `.entry` input section, which means that it will be put at the `0x00100000` mark. This is very important, as later on when we `jmp` to this location, we want the code in `.entry` to execute.
 
 ```ld
-.text ALIGN(4k) : AT(.)
+.text ALIGN(4k) : AT(ADDR(.text))
 {
 	*(.entry)
 	*(.text .text.*)
@@ -97,18 +106,18 @@ Note that the very first item is the `.entry` input section, which means that it
 Alright, I hope that made sense. We'll do similar things for the `.rodata` (for read-only data), `.data` (for data (*duh*)), and `.bss` (for uninitialised data) sections. These are not sections that we define manually, the compiler will do it by itself.
 
 ```ld
-	.rodata ALIGN(4k) : AT(.)
+	.rodata ALIGN(4k) : AT(ADDR(.rodata))
 	{
 		*(.rodata .rodata.*)
 	}
 
-	.data ALIGN(4k) : AT(.)
+	.data ALIGN(4k) : AT(ADDR(.data))
 	{
 		*(.data .data.*)
 	}
 
 	/* Not actually *in* the image. */
-	.bss ALIGN(4k) : AT(.)
+	.bss ALIGN(4k) : AT(ADDR(.bss))
 	{
 		*(COMMON)
 		*(.bss .bss.*)
@@ -119,3 +128,49 @@ Alright, I hope that made sense. We'll do similar things for the `.rodata` (for 
 That's it for the link script, we'll now move on to the build files.
 
 ## Modifying Build Scripts
+### Flags
+In our `build.sh` file, let's add a few variables to contain flags to pass to the compiler. 
+
+```bash
+kernelCompileFlags="-ffreestanding -nostdinc -nostdinc++ \
+					-Wall -Wextra \
+					-o kernel.bin -target i386-pc-none-elf \
+					-I ../src/kernel/"
+kernelLinkFlags="-nostdlib -Wl,--oformat=binary,-T../src/kernel/linkScript.ld"
+kernelFiles="../src/kernel/unityBuild.cpp"
+```
+
+Ok, let's go through the flags.
+
+| Flag | Use |
+| ======== | ======== |
+| `-ffreestanding` | Directs the compiler to not assume a standard environment where standard functions have their usual definitions. |
+| `-nostdinc` and `-nostdinc++` | Disables standard include directories for C and C++ headers. |
+| `-Wall` and `-Wextra` | Turns on warnings. |
+| `-o kernel.bin` | We are outputting to a file called `kernel.bin`. Note you can now remove `touch kernel.bin` from the build file, since we're actually creating it properly. |
+| `-target i386-pc-none-elf` | This is called a target triple. It specifies what architecture and format we want to build to. In this case, an x86 output in the format of ELF (Executable and Linkable Format). This format is common on Linux, though windows uses a different format (Portable Executable). |
+| `-I ../src/kernel` | We add an additional include directory to our main kernel directory. |
+| `-nostdlib` | Tells the compiler not to use the regular standard library. |
+| `-Wl,` | Will pass a comma-separated set of flags directly to the linker. |
+| `--oformat=binary` | Tells the linker we want a binary file output. |
+| `-T../src/kernel/linkScript.ld` | Gives a path to the linker script we defined. |
+
+
+### Calling NASM
+We need to call NASM on the entry point file we just created. This can be done like so:
+
+```bash
+nasm -felf32 ../src/kernel/entryPoint.asm -o kernelEntryPoint.o || exit 1
+```
+
+This tells NASM to output a `kernelEntryPoint.o` file, in a 32-bit ELF format.
+
+### Calling Clang
+Finally, we'll call Clang to compile our program. This is quite a simple command:
+
+```bash
+clang++ $kernelCompileFlags $kernelLinkFlags $kernelFiles || exit 1
+```
+
+## Final Thoughts
+If you run this now... nothing much should have changed. We'll be able to test that everything worked in a future chapter when we've loaded the kernel, but for now you'll just have to trust in it. The genVDisk utility should now be saying that it output a number of sectors for the kernel, so make sure that's happening!
