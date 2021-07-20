@@ -138,14 +138,17 @@ Alright, we now just need to update the number of sectors we've already read (si
 
 We print out a nice little string to say we've loaded the kernel (you can define this somewhere).
 
-## Final Thoughts
-Well done! All you need to do is call the function we created from your `expanded_main`, and we'll also enable protected mode one final time while we're at it. Simply:
+## Up, Up, and Away
+And now it's time to make the jump! In our `expanded_main`, let's call this function we just wrote. We'll also enable Protected Mode one last time, and then make our jump to `0x00100000`.
 
 ```nasm
 call load_kernel
 enable_protected_mode
+
+jmp KERNEL_FLAT_ADDRESS
 ```
 
-If all has gone to plan, you should see a bunch of messages telling you that it's entering Protected/Real Mode again, and then a nice little one saying it's loaded the kernel. If that's not what you get, have a look at the code again to make sure you've done everything correctly.
+## Final Thoughts
+**Well done!!!** If all has gone to plan, you should see a bunch of messages telling you that it's entering Protected/Real Mode again, and then a nice little one saying it's loaded the kernel. You should also see a little blue/white `Hello, world!` message being printed at the top of the screen (from the kernel!). If that's not what you get, have a look at the code again to make sure you've done everything correctly.
 
-See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/7630a74651cb7923c12d98e4d928a77648f03ecb).
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/).

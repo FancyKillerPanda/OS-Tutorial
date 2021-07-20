@@ -76,6 +76,8 @@ expanded_main:
 	call load_kernel
 	enable_protected_mode
 
+	jmp KERNEL_FLAT_ADDRESS
+
 	jmp $
 
 %include "a20Utility-inl.asm"
