@@ -5,6 +5,8 @@ CR: equ 0x0d
 LF: equ 0x0a
 BOOTLOADER_STACK_ADDRESS: equ 0xb000
 
+%include "kernelLoadMacros-inl.asm"
+
 start:
 	jmp short main
 	nop
@@ -71,9 +73,14 @@ expanded_main:
 	call describe_gdt
 	call describe_idt
 
+	enable_protected_mode
+
 	jmp $
 
 %include "a20Utility-inl.asm"
 %include "descriptorTableUtility-inl.asm"
 
 expandedMessage: db "Info: Bootloader expansion successful!", CR, LF, 0
+enableProtectedModeMessage: db "Info: Enabling protected mode!", CR, LF, 0
+
+bootloaderStackPointer: dw 0
