@@ -147,3 +147,5 @@ enable_protected_mode
 ```
 
 If all has gone to plan, you should see a bunch of messages telling you that it's entering Protected/Real Mode again, and then a nice little one saying it's loaded the kernel. If that's not what you get, have a look at the code again to make sure you've done everything correctly.
+
+See the code in full [here](https://github.com/FancyKillerPanda/OS-Tutorial/tree/7630a74651cb7923c12d98e4d928a77648f03ecb).
