@@ -77,16 +77,16 @@ We're going to use the `bits 32` instruction to tell NASM to compile the code to
 ```nasm
 bits 32
 
-mov eax, gdtData32Offset
-mov ds, eax
-mov es, eax
-mov fs, eax
-mov gs, eax
-mov ss, eax
+mov ax, gdtData32Offset
+mov ds, ax
+mov es, ax
+mov fs, ax
+mov gs, ax
+mov ss, ax
 mov esp, 0x20000
 ```
 
-Here you can see we put the offset of the 32-bit data GDT entry into all the other segment registers, and then set up the stack. The choice of `0x20000` for the Protected Mode stack was a bit arbitrary, I have simply chosen a location within usable memory.
+Here you can see we put the offset of the 32-bit data GDT entry into all the other segment registers (note that segment registers are always 16 bits wide), and then set up the stack. The choice of `0x20000` for the Protected Mode stack was a bit arbitrary, I have simply chosen a location within usable memory.
 
 That's all we need to do to enable Protected Mode. Let's tell NASM we're done:
 

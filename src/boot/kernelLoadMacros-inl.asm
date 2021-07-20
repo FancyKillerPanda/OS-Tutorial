@@ -28,11 +28,57 @@
 	%%.setup_segments:
 		bits 32
 		; Selects the data descriptor for all segments (except cs)
-		mov eax, gdtData32Offset
-		mov ds, eax
-		mov es, eax
-		mov fs, eax
-		mov gs, eax
-		mov ss, eax
+		mov ax, gdtData32Offset
+		mov ds, ax
+		mov es, ax
+		mov fs, ax
+		mov gs, ax
+		mov ss, ax
 		mov esp, 0x20000		; Still within usable memory
+%endmacro
+
+%macro enable_real_mode 0
+	%%.setup:
+		cli
+
+		; Also clears the prefetch queue
+		jmp gdtCode16Offset:%%.switch_to_16_bit_gdt
+		nop
+		nop
+
+	%%.switch_to_16_bit_gdt:
+		bits 16
+		mov ax, gdtData16Offset
+		mov ds, ax
+		mov es, ax
+		mov fs, ax
+		mov gs, ax
+		mov ss, ax
+
+	%%.disable_protected_mode:
+		mov eax, cr0
+		and eax, 0x7ffffffe		; Disables protected mode and paging
+		mov cr0, eax
+
+		; Also clears the prefetch queue
+		jmp 0x00:%%.reset_gdt_selector
+		nop
+		nop
+
+	%%.reset_gdt_selector:
+		xor ax, ax
+		mov ds, ax
+		mov es, ax
+		mov fs, ax
+		mov gs, ax
+		mov ss, ax
+		mov sp, word [bootloaderStackPointer]
+
+	%%.load_real_mode_idt:
+		lidt [idtEntryRealMode]
+
+	%%.cleanup:
+		sti
+		mov si, enableRealModeMessage
+		call print_string
 %endmacro
