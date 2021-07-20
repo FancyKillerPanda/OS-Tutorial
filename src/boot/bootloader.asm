@@ -73,16 +73,14 @@ expanded_main:
 	call describe_gdt
 	call describe_idt
 
-	enable_protected_mode
-	enable_real_mode
-	enable_protected_mode
-	enable_real_mode
+	call load_kernel
 	enable_protected_mode
 
 	jmp $
 
 %include "a20Utility-inl.asm"
 %include "descriptorTableUtility-inl.asm"
+%include "kernelLoadUtility-inl.asm"
 
 expandedMessage: db "Info: Bootloader expansion successful!", CR, LF, 0
 enableProtectedModeMessage: db "Info: Enabling protected mode!", CR, LF, 0
