@@ -38,6 +38,11 @@ collections:
         permalink: /:collection/:title/
         output: true
 
+    03_kernel:
+        title: "Kernel"
+        permalink: /:collection/:title/
+        output: true
+
 # Build settings
 theme: minima
 plugins:

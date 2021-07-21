@@ -1,16 +1,18 @@
 //  ===== Date Created: 20 July, 2021 ===== 
 
+#include "system/common.hpp"
+
 extern "C" void kmain()
 {
-	unsigned char* address = (unsigned char*) 0xb8000;
-	const char* string = "Hello, world!";
-	unsigned short stringSize = 13;
+	u8* address = (u8*) 0xb8000;
+	const u8* string = "Hello, world!";
+	u16 stringSize = 13;
 
-	for (unsigned short i = 0; i < stringSize; i++)
+	for (u16 i = 0; i < stringSize; i++)
 	{
-		*address = (unsigned char) string[i];
+		*address = (u8) string[i];
 		address += 1;
-		*address = (unsigned char) 0x9f;
+		*address = (u8) 0x9f;
 		address += 1;
 	}
 

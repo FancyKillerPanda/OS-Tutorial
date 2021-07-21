@@ -3,7 +3,7 @@
 
 # Flags
 kernelCompileFlags="-ffreestanding -nostdinc -nostdinc++ \
-					-Wall -Wextra \
+					-Wall -Wextra -funsigned-char \
 					-o kernel.bin -target i386-pc-none-elf \
 					-I ../src/kernel/"
 kernelLinkFlags="-nostdlib -Wl,--oformat=binary,-T../src/kernel/linkScript.ld"
